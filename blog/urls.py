@@ -1,10 +1,13 @@
+from django.urls import path,include
+from rest_framework.routers import DefaultRouter
+from .views import BlogViewSet,CommentsViewSet
 
-from django.urls import path
-from . import views
+router=DefaultRouter()
+
+router.register(r'blog',BlogViewSet)
+router.register(r'blog/(?P<blog_id>[^/]+)/comments',CommentsViewSet)
 
 urlpatterns = [
-    path('home/', views.home),
-    path('about/', views.about),  
-    path('contact/', views.contact),
-    path('blog/', views.blog)
+    path('',include(router.urls)),
+    #path('api-token-auth/',Custom)
 ]

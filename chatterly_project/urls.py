@@ -16,9 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from blog.views import BlogViewSet,CommentsViewSet
+from rest_framework.routers import DefaultRouter
 
+router=DefaultRouter()
+
+router.register(r'blog',BlogViewSet)
+router.register(r'blog/(?P<blog_id>[^/]+)/comments',CommentsViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/',include(router.urls)),
     path('', include('blog.urls'))
 ]
